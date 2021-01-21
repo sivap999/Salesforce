@@ -24,6 +24,7 @@ Bonus:-
 - Live Project implementation along with me
 - Course Completion Certification
 
+Here is the link of the unmanaged packge which can be used to setup all the Objects inside salesforce. [Udemy Integration](packaging/installPackage.apexp?p0=04t2x0000048Isi)
 
 You can use [This Link](https://gitlab.com/sfdcamit/salesforce-integration/-/tree/master/Code) to access the Code which we have developed through out the course.
 
