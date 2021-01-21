@@ -1,0 +1,80 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global"
+                extensible="true"
+                controller="FreshdeskWrapper">
+    
+    <!-- Attributes -->
+    <aura:attribute name="description" type="String" />
+    <aura:attribute name="subject" type="String" />
+    <aura:attribute name="name" type="String" />
+    <aura:attribute name="phone" type="String" />
+    <aura:attribute name="email" type="String" />
+    <aura:attribute name="priority" type="integer" />
+    <aura:attribute name="status" type="integer" />
+    <aura:attribute name="source" type="integer" />
+    <aura:attribute name="cc_emails" type="List" 
+                    default="['ram@freshdesk.com','diana@freshdesk.com']" />
+    <aura:attribute name="tags" type="List" 
+                    default="['Account','Money Related Issue','Login Issue']" />
+    <aura:attribute name="isLoading" type="Boolean" default="false"/>
+    <!-- spinner component -->
+    <aura:if isTrue="{!v.isLoading}">
+        <lightning:spinner alternativeText="Loading" size="small" variand="brand" />
+    </aura:if>
+    
+    <lightning:card title="Freshdesk Component" iconName="utility:report_issue">
+        <lightning:tabset selectedTabId="cTickets" variant="scoped">
+            <lightning:tab label="Create Ticket" id="cTickets">
+                <div class="slds-m-around_small">
+                    <lightning:input name="name" label="Full Name" value="{!v.name}"/>
+                    <lightning:input type="email" name="email" label="Email" value="{!v.email}"/>
+                    <lightning:input type="phone" name="phone" label="Phone" value="{!v.phone}"/>
+                    <lightning:input name="subject" label="Subject" value="{!v.subject}"/>
+                    <lightning:textarea name="description" label="Description" value="{!v.description}"/>
+                    <lightning:select name="priority" label="Proorty" value="{!v.priority}" required="true">
+                        <option value="1">Low</option>
+                        <option value="2">Medium</option>
+                        <option value="3">High</option>
+                        <option value="4">Urgent</option>
+                    </lightning:select>
+                    <lightning:select name="status" label="Status" value="{!v.status}" required="true">
+                        <option value="2">Open</option>
+                        <option value="3">Pending</option>
+                        <option value="4">Resolved</option>
+                        <option value="5">Closed</option>
+                    </lightning:select>
+                    <lightning:select name="source" label="Source" value="{!v.source}" required="true">
+                        <option value="1">Email</option>
+                        <option value="2">Portal</option>
+                        <option value="3">Phone</option>
+                        <option value="7">Chat</option>
+                        <option value="8">Mobihelp</option>
+                        <option value="9">Feedback Widget</option>
+                        <option value="10">Outbound Email</option>
+                        
+                    </lightning:select>
+                    <div class="slds-p-top_small">
+                        <lightning:button label="Create Case" value="Create Case"
+                                          onclick="{!c.doCreate}" variant="brand" />
+                    </div>
+                    
+                </div>
+            </lightning:tab>
+            <lightning:tab label="Create Contact" id="cContacts">
+                <div class="slds-m-around_small">
+                    
+                </div>
+            </lightning:tab>
+            <lightning:tab label="Get All Ticket" id="tickets">
+                <div class="slds-m-around_small">
+                    <c:fr_getAllTicketComponent isLoading="{!v.isLoading}"/>
+                </div>
+            </lightning:tab>
+            <lightning:tab label="Get All Contacts" id="contacts">
+                <div class="slds-m-around_small">
+                    
+                </div>
+            </lightning:tab>
+        </lightning:tabset>
+    </lightning:card>
+    
+</aura:component>

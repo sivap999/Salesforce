@@ -1,0 +1,94 @@
+<template>
+    <lightning-card  variant="Narrow"  title="Custom Object Definition Edit" icon-name="utility:setup">
+        <lightning-spinner alternative-text="Loading" size="small" variant="brand" if:true={isLoading}></lightning-spinner>
+        <div slot="footer">
+            <lightning-badge label="Metadata API"></lightning-badge>
+        </div>
+        <lightning-button variant="brand-outline" icon-name="custom:custom44" label="Save" title="Save" slot="actions" onclick={handleCreate} ></lightning-button>
+        &nbsp;&nbsp;
+        <lightning-button variant="brand-outline" icon-name="utility:chevronleft" label="Go Back" title="Save" slot="actions" 
+            onclick={handleBack} ></lightning-button>
+        <div class="slds-m-around_large">
+            <h3 class="slds-section-title--divider">Custom Object Information</h3>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-size--1-of-2">
+                    <lightning-input type="text" variant="standard" placeholder="Example: Student"
+                        message-when-value-missing="⚠️ You must enter a value"
+                        name="label" label="Label" required></lightning-input>
+                </div>
+                <div class="slds-size--1-of-2">
+                    <lightning-input type="text" variant="standard" placeholder="Example: Students" 
+                        message-when-value-missing="⚠️ You must enter a value"
+                        name="pluralLabel" label="Plural Label" required>
+                    </lightning-input>
+                </div>
+                <div class="slds-size--1-of-1">
+                    <lightning-textarea name="description" label="Description"></lightning-textarea>
+                </div>
+            </div>
+            <h3 class="slds-section-title--divider">Enter Record Name Label and Format</h3>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-size--1-of-1">
+                    The Record Name appears in page layouts, key lists, related lists, lookups, and search results. 
+                    For example, the Record Name for Account is "Account Name" and for Case it is "Case Number". 
+                    Note that the Record Name field is always called "Name" when referenced via the API.
+                </div>
+                <div class="slds-size--1-of-2">
+                    <lightning-input type="text" 
+                        variant="standard" name="labelNameField" 
+                        label="Record Name" required
+                        message-when-value-missing="⚠️ You must enter a value"
+                        placeholder="Example: Student Name"
+                        >
+                    </lightning-input>
+                </div>
+                <div class="slds-size--1-of-2">
+                    <lightning-combobox
+                        name="type_x"
+                        label="Data Type"
+                        value={valuet}
+                        options={options}
+                        onchange={handleDTChange} >
+                    </lightning-combobox>
+                </div>
+                <div class="slds-size--1-of-2" if:true={showFormat}>
+                    <lightning-input type="text" name="displayFormat" label="Display Format"
+                        message-when-value-missing="⚠️ You must enter a value"
+                        placeholder="A-{0000}" required>
+                    </lightning-input>
+                </div>
+                <div class="slds-size--1-of-2" if:true={showFormat}>
+                    <lightning-input type="number" name="startingNumber" 
+                        message-when-value-missing="⚠️ You must enter a value"
+                        label="Starting Number" placeholder="Example: 1000" required>
+                    </lightning-input>
+                </div>
+            </div>
+            <p class="slds-p-top_small"></p>
+            <h3 class="slds-section-title--divider">Optional Features</h3>
+            <div class="slds-grid slds-wrap">
+                <lightning-checkbox-group name="Optional Features"
+                        label="Optional Features"
+                        options={optionsOF}
+                        value={value}
+                        onchange={handleChangeOF}>
+                </lightning-checkbox-group>
+            </div>
+            <p class="slds-p-top_small"></p>
+            <h3 class="slds-section-title--divider">Deployment Status</h3>
+            <div class="slds-grid slds-wrap">
+                <lightning-radio-group name="deploymentStatus"
+                        label="Deployment Status"
+                        options={optionsD}
+                        value={valued}
+                        type="radio">
+                </lightning-radio-group>
+            </div>
+            <p class="slds-p-top_small"></p>
+            <h3 class="slds-section-title--divider">Search Status</h3>
+            <div class="slds-grid slds-wrap">
+                <lightning-input name="enableSearch" type="checkbox" label="Allow Search"></lightning-input>
+            </div>
+        </div>
+    </lightning-card>
+</template>

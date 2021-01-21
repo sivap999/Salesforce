@@ -1,0 +1,42 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+    
+    <lightning:empApi aura:id="empApiNew" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+
+    <!-- Holds the streaming event subscription -->
+    <aura:attribute name="subscription" type="Map" />
+    <aura:attribute name="eventMessage" type="String" />
+    
+    <aura:attribute name="channelName" type="String" default="/event/BatchApexErrorEvent" required="true" />
+    
+    <!-- attributes -->
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+
+    <lightning:card title="Standard Platform Event" iconName="standard:event">
+        <div class="slds-var-p-around_large">
+            {!v.eventMessage}
+            <!-- Form for subscribing/unsubscribing to/from events -->
+            <lightning:input aura:id="channel" label="channel" name="channel" type="text" 
+                             value="{!v.channelName}"/>
+            <br/>
+            <lightning:button label="Subscribe" onclick="{! c.subscribe }" variant="success"
+                              disabled="{!!empty(v.subscription)}" />
+            &nbsp;&nbsp;
+            <lightning:button label="Unsubscribe" onclick="{! c.unsubscribe }" disabled="{!empty(v.subscription)}"/>
+        </div>
+        <div>
+        	<!-- the container element determine the height of the datatable -->
+            <aura:if isTrue="{!v.channelName == '/event/BatchApexErrorEvent'}">
+                <div class="slds-var-p-around_large">
+                    <lightning:datatable
+                                         keyField="id"
+                                         data="{! v.data }"
+                                         columns="{! v.columns }"
+                                         hideCheckboxColumn="true"/>
+                </div> 
+            </aura:if>
+        </div>
+    </lightning:card>
+</aura:component>

@@ -1,0 +1,22 @@
+<template>
+    <lightning-card  variant="Narrow"  title="Quickbooks Payment" icon-name="custom:custom25">
+        <div class="slds-var-m-around_large">
+            <lightning-input type="number" variant="standard" name="name" label="Payment Amount"
+                placeholder="type here...">
+            </lightning-input>
+            <lightning-input type="text" variant="standard" value="Amy's Bird Sanctuary" 
+                name="name" label="Customer"
+                placeholder="type here..." disabled>
+            </lightning-input>
+            <lightning-input type="text" variant="standard" value="1" 
+                name="name" label="Customer RefNo"
+                placeholder="type here..." disabled>
+            </lightning-input>
+        </div>
+        <div class="slds-var-m-around_large">
+            <lightning-button variant="brand" label="Create Payment" 
+                title="Create Payment" onclick={handleClick}>
+            </lightning-button>
+        </div>
+    </lightning-card>
+</template>

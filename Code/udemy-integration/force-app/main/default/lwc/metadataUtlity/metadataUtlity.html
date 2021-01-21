@@ -1,0 +1,88 @@
+<!--
+    @description       : 
+    @author            : Amit Singh
+    @group             : 
+    @last modified on  : 12-29-2020
+    @last modified by  : Amit Singh
+    Modifications Log 
+    Ver   Date         Author       Modification
+    1.0   12-28-2020   Amit Singh   Initial Version
+-->
+<template>
+    <lightning-card  variant="Narrow"  title="Metadata Manager" icon-name="utility:setup">
+        <lightning-spinner if:true={isLoading} alternative-text="Loading" variant="brand" size="small"></lightning-spinner>
+        <div class="slds-m-around_large">
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="12" padding="around-small" small-device-size="3" medium-device-size="6" 
+                    large-device-size="8" >
+                    <lightning-combobox
+                        name="progress"
+                        value={selectedObject}
+                        placeholder="Select Object"
+                        options={objects}
+                        onchange={handleChange} >
+                    </lightning-combobox>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" padding="around-small" small-device-size="3" medium-device-size="6" 
+                    large-device-size="4">
+                    <div class="slds-m-top_small">
+                        <lightning-button variant="brand" label="Get Object Information" 
+                            onclick={handleObjectInformation}>
+                        </lightning-button>
+                        &nbsp;
+                        <lightning-button variant="brand" label="New Custom Object" title="Create New Object" 
+                            onclick={handleCreateNewObject}>
+                        </lightning-button>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+
+            <!-- Display object information -->
+            <h3 class="slds-section-title--divider" if:true={objectInformation}>Object Information</h3>
+            <lightning-button variant="brand-outline" if:true={objectInformation} label="New Custom Field" onclick={handleFieldClick}></lightning-button>
+            <div class="slds-m-around_large" if:true={objectInformation}>
+                <lightning-layout horizontal-align="spread" multiple-rows>
+                    <lightning-layout-item flexibility="grow" size="8" medium-device-size="10" large-device-size="8">
+                        <strong>Label</strong> &nbsp; {objectInformation.label}
+                    </lightning-layout-item>
+                    <lightning-layout-item flexibility="grow" size="4" medium-device-size="2" large-device-size="4">
+                        <strong>Plural Label</strong> &nbsp; {objectInformation.pluralLabel}
+                    </lightning-layout-item>
+                    <lightning-layout-item flexibility="grow" size="4" medium-device-size="6" large-device-size="4">
+                        <strong>Name</strong> &nbsp;{objectInformation.fullName}
+                    </lightning-layout-item>
+                    <lightning-layout-item flexibility="grow" size="4" medium-device-size="6" large-device-size="4">
+                        <strong>Description</strong> &nbsp; {objectInformation.description}
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+            
+            <h3 class="slds-section-title--divider" if:true={objectInformation}>Field Information</h3>
+            <p class="slds-p-top_small"></p>
+            <p if:true={objectInformation}>
+                <lightning-datatable
+                    if:true={fieldsData}
+                    key-field="id"
+                    data={fieldsData}
+                    show-row-number-column
+                    hide-checkbox-column
+                    columns={columns}
+                    onrowaction={handleRowAction}>
+                </lightning-datatable>
+            </p>
+            <p class="slds-p-top_small"></p>
+            <h3 class="slds-section-title--divider" if:true={objectInformation}>Validation Rule Information</h3>
+            <p class="slds-p-top_small"></p>
+            <p if:true={objectInformation}>
+                <lightning-datatable if:true={validationRules}
+                    key-field="id"
+                    data={validationRules}
+                    show-row-number-column
+                    hide-checkbox-column
+                    columns={valColumns}
+                    onrowaction={handleRowAction}>
+                </lightning-datatable>
+            </p>
+        </div>
+    </lightning-card>
+</template>

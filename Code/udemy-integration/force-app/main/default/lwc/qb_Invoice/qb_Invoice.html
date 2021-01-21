@@ -1,0 +1,25 @@
+<template>
+    <lightning-card  variant="Narrow"  title="Quickbooks Invoice" icon-name="custom:custom23">
+        <div class="slds-var-m-around_large">
+            <lightning-input type="text" variant="standard" name="name" label="Iten Name"
+                placeholder="type here...">
+            </lightning-input>
+            <lightning-input type="number" variant="standard" name="name" label="Amount"
+                placeholder="type here...">
+            </lightning-input>
+            <lightning-input type="text" variant="standard" value="Amy's Bird Sanctuary" 
+                name="name" label="Customer"
+                placeholder="type here..." disabled>
+            </lightning-input>
+            <lightning-input type="text" variant="standard" value="1" 
+                name="name" label="Customer RefNo"
+                placeholder="type here..." disabled>
+            </lightning-input>
+        </div>
+        <div class="slds-var-m-around_large">
+            <lightning-button variant="brand" label="Create Invoice" 
+                title="Create Invoice" onclick={handleClick}>
+            </lightning-button>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,133 @@
+<template>
+    <lightning-card  variant="Narrow"  title="Custom Field Definition Edit" icon-name="utility:setup">
+        <lightning-spinner alternative-text="Loading" size="small" variant="brand" if:true={isLoading}></lightning-spinner>
+        <lightning-button variant="brand-outline" label="Deploy" title="Save" slot="actions" >
+        </lightning-button>
+        <lightning-button variant="brand-outline" icon-name="utility:chevronleft" label="Go Back" title="Save" slot="actions" 
+            onclick={handleBack} >
+        </lightning-button>
+        <div slot="footer">
+            <lightning-badge label="Metadata API"></lightning-badge>
+        </div>
+        <div class="slds-m-around_large">
+            <h3 class="slds-section-title--divider" if:true={objectInformation}>Object Information</h3>
+            <div class="slds-m-around_large" if:true={objectInformation}>
+                <lightning-layout horizontal-align="spread" multiple-rows>
+                    <lightning-layout-item flexibility="grow" size="8" medium-device-size="10" large-device-size="8">
+                        <strong>Label</strong> &nbsp; {objectInformation.label}
+                    </lightning-layout-item>
+                    <lightning-layout-item flexibility="grow" size="4" medium-device-size="2" large-device-size="4">
+                        <strong>Plural Label</strong> &nbsp; {objectInformation.pluralLabel}
+                    </lightning-layout-item>
+                    <lightning-layout-item flexibility="grow" size="4" medium-device-size="6" large-device-size="4">
+                        <strong>Name</strong> &nbsp;{objectInformation.fullName}
+                    </lightning-layout-item>
+                    <lightning-layout-item flexibility="grow" size="4" medium-device-size="6" large-device-size="4">
+                        <strong>Description</strong> &nbsp; {objectInformation.description}
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+
+            <h3 class="slds-section-title--divider">Custom Field DataType</h3>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-size--1-of-2">
+                    <lightning-combobox
+                        name="type_x"
+                        value={valuet}
+                        label="Data Type"
+                        options={dataTypes}
+                        onchange={handleDataTypeChange}
+                        >
+                    </lightning-combobox>
+                </div>
+                <div class="slds-size--1-of-2">
+                    <p class="slds-p-top_medium slds-p-left_medium">
+                        {showMessage}
+                    </p>
+                </div>
+            </div>
+            <p class="slds-p-top_small"></p>
+            <h3 class="slds-section-title--divider">Custom Field Information</h3>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-size--1-of-2">
+                    <lightning-input type="text" name="label" label="Label"
+                    message-when-value-missing="⚠️ You must enter a value"
+                    required></lightning-input>
+                </div>
+                <div class="slds-size--1-of-2" if:true={showLength}>
+                    <lightning-input type="number" name="length" label="Length" 
+                    message-when-value-missing="⚠️ You must enter a value"
+                    required></lightning-input>
+                </div>
+                <div class="slds-size--1-of-2" if:true={showFormat}>
+                    <lightning-input type="text" name="displayFormat" label="Display Format"
+                        message-when-value-missing="⚠️ You must enter a value"
+                        placeholder="A-{0000}" required>
+                    </lightning-input>
+                </div>
+                <div class="slds-size--1-of-2" if:true={showFormat}>
+                    <lightning-input type="number" name="startingNumber" 
+                        message-when-value-missing="⚠️ You must enter a value"
+                        label="Starting Number" placeholder="Example: 1000" required>
+                    </lightning-input>
+                </div>
+                <div class="slds-size--1-of-2" if:true={showLookup}>
+                    <lightning-combobox
+                        name="lookup"
+                        label="Related To"
+                        placeholder="Select Related To"
+                        options={relatedToObjects}
+                        required>
+                    </lightning-combobox>
+                </div>
+                <div class="slds-size--1-of-2" if:true={showLookup}>
+                    <lightning-input type="text" name="relatedListLabel" 
+                        message-when-value-missing="⚠️ You must enter a value"
+                        label="Related List Label" required>
+                    </lightning-input>
+                </div>
+                <div class="slds-size--1-of-2" if:true={showNumbers}>
+                    <lightning-input type="number" max="20" name="precission" 
+                        message-when-value-missing="⚠️ You must enter a value"
+                        label="Length" required>
+                    </lightning-input>
+                </div>
+                <div class="slds-size--1-of-2" if:true={showNumbers}>
+                    <lightning-input type="number" max="20" name="scale" 
+                        message-when-value-missing="⚠️ You must enter a value"
+                        label="Decimal Places" required>
+                    </lightning-input>
+                </div>
+                <div class="slds-size--1-of-2" if:true={showPickList}>
+                    <lightning-textarea label="Enter Picklist value" required></lightning-textarea>
+                </div>
+            </div>
+            <p class="slds-p-top_small"></p>
+            <h3 class="slds-section-title--divider">Optional Field Information</h3>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-size--1-of-1">
+                    <lightning-textarea name="description" label="Description" ></lightning-textarea>
+                </div>
+                <div class="slds-size--1-of-1">
+                    <lightning-textarea name="inLineHelpText" label="Help Text" ></lightning-textarea>
+                </div>
+            </div>
+            <p class="slds-p-top_small"></p>
+            <h3 class="slds-section-title--divider">Additional Information</h3>
+            <div class="slds-grid slds-wrap">
+                <div class="slds-size--1-of-1">
+                    <lightning-input type="checkbox" name="required" 
+                        label="Always require a value in this field in order to save a record" ></lightning-input>
+                </div>
+                <div class="slds-size--1-of-1">
+                    <lightning-checkbox-group name="additionalFeatures"
+                        label="Additional Features"
+                        options={optionsAdd}
+                        value={value}
+                    >
+                    </lightning-checkbox-group>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

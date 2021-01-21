@@ -1,0 +1,23 @@
+<apex:page standardController="Account" renderAs="pdf" >
+  
+  <apex:form >
+  <apex:pageblock title="Account Information" >
+              <apex:pageBlockSection title="Account Information" columns="2">
+                <apex:outputField label="Account Name (Override)" value="{!Account.Name}"/>
+                <apex:outputField value="{!Account.Site}"/>
+                <apex:outputField value="{!Account.Type}"/>
+                <apex:outputField value="{!Account.Industry}"/>
+                <apex:outputField value="{!Account.SLAExpirationDate__c}" />
+                <apex:outputField value="{!Account.ParentId}" />
+                <apex:outputField value="{!Account.accountNumber}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Address Information" columns="2">
+                <apex:outputField value="{!Account.BillingStreet}"/>
+                <apex:outputField value="{!Account.BillingCity}"/>
+                <apex:outputField value="{!Account.BillingState}"/>
+                <apex:outputField value="{!Account.BillingPostalCode}"/>
+                <apex:outputField value="{!Account.BillingCountry}"/>
+            </apex:pageBlockSection>
+          </apex:pageblock>
+          </apex:form>
+</apex:page>

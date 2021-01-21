@@ -1,0 +1,21 @@
+<template>
+    <lightning-card  variant="Narrow"  title="Google Event" icon-name="standard:event">
+        <div class="slds-var-m-around_large">
+            <lightning-input type="text" variant="standard" name="name" label="Subject" 
+                >
+            </lightning-input>
+            <lightning-input type="datetime" variant="standard" name="name" label="Start Date" 
+                >
+            </lightning-input>
+            <lightning-input type="datetime" variant="standard" name="name" 
+                label="End Date">
+            </lightning-input>
+        </div>
+        <div class="slds-var-m-around_large">
+            <lightning-button variant="brand" 
+                label="Create Event" title="Create Event" 
+                onclick={handleClick}>
+            </lightning-button>
+        </div>
+    </lightning-card>
+</template>

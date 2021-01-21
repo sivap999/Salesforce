@@ -1,0 +1,23 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+                controller="FreshdeskWrapper"
+                access="global" >
+    <aura:attribute name="isLoading" type="Boolean" />
+    <aura:attribute name="ticketsList" type="Object"/>
+    <div class="slds-m-around_small">
+    	<lightning:button label="Retrieve Tickets" value="Retrieve Tickets"
+                                          onclick="{!c.doClick}" variant="brand" />
+    </div>
+    <div class="slds-m-around_small">
+        
+        <aura:iteration items="{!v.ticketsList}" var="ticket">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                    Subject: {!ticket.subject}<br/>
+                    Id: {!ticket.id}<br/>
+                    Description: {!ticket.description_text}<br/>
+                </div>
+            </div>
+        </aura:iteration>
+    </div>
+	
+</aura:component>

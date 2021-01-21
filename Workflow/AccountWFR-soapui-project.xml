@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="13f60cab-be13-4bc7-b3ca-c386e493d56d" activeEnvironment="Default" name="AccountWFR" resourceRoot="${projectDir}" soapui-version="5.6.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="0912e31a-4407-45b6-87c6-3926cf1f8ced" wsaVersion="NONE" name="NotificationBinding" type="wsdl" bindingName="{http://soap.sforce.com/2005/09/outbound}NotificationBinding" soapVersion="1_1" anonymous="optional" definition="AccountWFR.xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\D:\Udemy%20Courses\Integration\Workflow\AccountWFR.xml"><con:part><con:url>file:\D:\Udemy%20Courses\Integration\Workflow\AccountWFR.xml</con:url><con:content><![CDATA[<!--Salesforce.com Outbound Notification Web Services API Version 1.0 
+Generated on 2020-11-22 09:37:22 +0000.
+
+Copyright 2005-2020 Salesforce.com, Inc.
+All Rights Reserved-->
+<definitions targetNamespace="http://soap.sforce.com/2005/09/outbound" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://soap.sforce.com/2005/09/outbound" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ent="urn:enterprise.soap.sforce.com" xmlns:ens="urn:sobject.enterprise.soap.sforce.com">
+  <types>
+    <schema elementFormDefault="qualified" targetNamespace="urn:enterprise.soap.sforce.com" xmlns="http://www.w3.org/2001/XMLSchema">
+      <!--Our simple ID Type-->
+      <simpleType name="ID">
+        <restriction base="xsd:string">
+          <length value="18"/>
+          <pattern value="[a-zA-Z0-9]{18}"/>
+        </restriction>
+      </simpleType>
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:sobject.enterprise.soap.sforce.com" xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="urn:enterprise.soap.sforce.com"/>
+      <!--Base sObject (abstract)-->
+      <complexType name="sObject">
+        <sequence>
+          <element name="fieldsToNull" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+          <element name="Id" type="ent:ID" nillable="true"/>
+        </sequence>
+      </complexType>
+      <complexType name="AggregateResult">
+        <complexContent>
+          <extension base="ens:sObject">
+            <sequence>
+              <any namespace="##targetNamespace" minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="Account">
+        <complexContent>
+          <extension base="ens:sObject">
+            <sequence>
+              <element name="AccountNumber" nillable="true" minOccurs="0" type="xsd:string"/>
+              <element name="AccountSource" nillable="true" minOccurs="0" type="xsd:string"/>
+              <element name="Active__c" nillable="true" minOccurs="0" type="xsd:string"/>
+              <element name="Address__c" nillable="true" minOccurs="0" type="xsd:string"/>
+              <element name="AnnualRevenue" nillable="true" minOccurs="0" type="xsd:double"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="http://soap.sforce.com/2005/09/outbound" xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="urn:enterprise.soap.sforce.com"/>
+      <import namespace="urn:sobject.enterprise.soap.sforce.com"/>
+      <element name="notifications">
+        <complexType>
+          <sequence>
+            <element name="OrganizationId" type="ent:ID"/>
+            <element name="ActionId" type="ent:ID"/>
+            <element name="SessionId" type="xsd:string" nillable="true"/>
+            <element name="EnterpriseUrl" type="xsd:string"/>
+            <element name="PartnerUrl" type="xsd:string"/>
+            <element name="Notification" maxOccurs="100" type="tns:AccountNotification"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="AccountNotification">
+        <sequence>
+          <element name="Id" type="ent:ID"/>
+          <element name="sObject" type="ens:Account"/>
+        </sequence>
+      </complexType>
+      <element name="notificationsResponse">
+        <complexType>
+          <sequence>
+            <element name="Ack" type="xsd:boolean"/>
+          </sequence>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <!--Method Messages-->
+  <message name="notificationsRequest">
+    <part element="tns:notifications" name="request"/>
+  </message>
+  <message name="notificationsResponse">
+    <part element="tns:notificationsResponse" name="response"/>
+  </message>
+  <!--PortType-->
+  <portType name="NotificationPort">
+    <operation name="notifications">
+      <documentation>Process a number of notifications.</documentation>
+      <input message="tns:notificationsRequest"/>
+      <output message="tns:notificationsResponse"/>
+    </operation>
+  </portType>
+  <!--Binding 
+         You need to write a service that implements this binding to receive the notifications-->
+  <binding name="NotificationBinding" type="tns:NotificationPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="notifications">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <!--Service Endpoint-->
+  <service name="NotificationService">
+    <documentation>Notification Service Implementation</documentation>
+    <port binding="tns:NotificationBinding" name="Notification">
+      <soap:address location="https://617a6c911a0f63766dd312d14d6deef0.m.pipedream.net"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://617a6c911a0f63766dd312d14d6deef0.m.pipedream.net</con:endpoint></con:endpoints><con:operation id="9c9d399e-400a-4ac7-9384-3fe7b13ff753" isOneWay="false" action="" name="notifications" bindingOperationName="notifications" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="8c129fe8-3d01-4c02-ab84-7807dbc889f6" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://617a6c911a0f63766dd312d14d6deef0.m.pipedream.net</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:out="http://soap.sforce.com/2005/09/outbound" xmlns:urn="urn:sobject.enterprise.soap.sforce.com">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <out:notifications>\r
+         <out:OrganizationId>?</out:OrganizationId>\r
+         <out:ActionId>?</out:ActionId>\r
+         <out:SessionId>?</out:SessionId>\r
+         <out:EnterpriseUrl>?</out:EnterpriseUrl>\r
+         <out:PartnerUrl>?</out:PartnerUrl>\r
+         <!--1 to 100 repetitions:-->\r
+         <out:Notification>\r
+            <out:Id>?</out:Id>\r
+            <out:sObject>\r
+               <!--Zero or more repetitions:-->\r
+               <urn:fieldsToNull>?</urn:fieldsToNull>\r
+               <urn:Id>?</urn:Id>\r
+               <!--Optional:-->\r
+               <urn:AccountNumber>?</urn:AccountNumber>\r
+               <!--Optional:-->\r
+               <urn:AccountSource>?</urn:AccountSource>\r
+               <!--Optional:-->\r
+               <urn:Active__c>?</urn:Active__c>\r
+               <!--Optional:-->\r
+               <urn:Address__c>?</urn:Address__c>\r
+               <!--Optional:-->\r
+               <urn:AnnualRevenue>?</urn:AnnualRevenue>\r
+            </out:sObject>\r
+         </out:Notification>\r
+      </out:notifications>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://soap.sforce.com/2005/09/outbound/NotificationPort/notificationsRequest"/></con:call></con:operation></con:interface><con:testSuite id="d1164c7f-1939-45cd-9dd9-a404aa6bd741" name="NotificationBinding TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="8ab89b7f-0991-4dac-82c6-078119d52f51" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="notifications TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="10597390-e019-4ad6-a0d7-72761d1d0a4a" name="notifications"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>NotificationBinding</con:interface><con:operation>notifications</con:operation><con:request name="notifications" id="c0ab791b-a9e6-40a2-ba7b-b8764dbde2c5"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>https://617a6c911a0f63766dd312d14d6deef0.m.pipedream.net</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:out="http://soap.sforce.com/2005/09/outbound" xmlns:urn="urn:sobject.enterprise.soap.sforce.com">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <out:notifications>\r
+         <out:OrganizationId>?</out:OrganizationId>\r
+         <out:ActionId>?</out:ActionId>\r
+         <out:SessionId>?</out:SessionId>\r
+         <out:EnterpriseUrl>?</out:EnterpriseUrl>\r
+         <out:PartnerUrl>?</out:PartnerUrl>\r
+         <!--1 to 100 repetitions:-->\r
+         <out:Notification>\r
+            <out:Id>?</out:Id>\r
+            <out:sObject>\r
+               <!--Zero or more repetitions:-->\r
+               <urn:fieldsToNull>?</urn:fieldsToNull>\r
+               <urn:Id>?</urn:Id>\r
+               <!--Optional:-->\r
+               <urn:AccountNumber>?</urn:AccountNumber>\r
+               <!--Optional:-->\r
+               <urn:AccountSource>?</urn:AccountSource>\r
+               <!--Optional:-->\r
+               <urn:Active__c>?</urn:Active__c>\r
+               <!--Optional:-->\r
+               <urn:Address__c>?</urn:Address__c>\r
+               <!--Optional:-->\r
+               <urn:AnnualRevenue>?</urn:AnnualRevenue>\r
+            </out:sObject>\r
+         </out:Notification>\r
+      </out:notifications>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:wsaConfig action="http://soap.sforce.com/2005/09/outbound/NotificationPort/notificationsRequest"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:mockService id="3c7956e7-3b01-4dac-8c52-632049367f54" port="8080" path="/" host="DESKTOP-3FEUL0C" name="MockService 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="notifications" id="4f242bc7-3c5a-48de-a111-187f3ad96ad3" interface="NotificationBinding" operation="notifications"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="7a3e1d9b-ec7f-47c6-bbae-0b8a10054b59" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:out="http://soap.sforce.com/2005/09/outbound">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <out:notificationsResponse>
+         <out:Ack>?</out:Ack>
+      </out:notificationsResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://soap.sforce.com/2005/09/outbound/NotificationPort/notificationsResponse"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
